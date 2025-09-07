@@ -14,12 +14,37 @@ const app = express();
 
 const CLIENT_URL = process.env.CLIENT_URL;
 
-app.use(cors({
-    origin: "https://e-commerce-shop-ease-dusky.vercel.app/", 
-    credentials: true, // allow cookies
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"], // allow JWT headers too
-}));
+const corsOptions = {
+    origin: function (origin, callback) {
+        console.log('Request origin:', origin);
+        
+        // Allow requests with no origin (mobile apps, Postman, curl, etc.)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            console.error(`Origin ${origin} not allowed by CORS`);
+            return callback(new Error('Not allowed by CORS'), false);
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: [
+        'Origin',
+        'X-Requested-With',
+        'Content-Type',
+        'Accept',
+        'Authorization',
+        'Cache-Control',
+        'X-Access-Token'
+    ],
+    exposedHeaders: ['Set-Cookie'],
+    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+    preflightContinue: false
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(express.json());
