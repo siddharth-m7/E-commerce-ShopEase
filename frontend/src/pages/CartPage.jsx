@@ -1,9 +1,11 @@
 // src/pages/CartPage.jsx
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCartStore } from "../store/cartStore";
 
 export default function CartPage() {
   const { cart, fetchCart, addToCart, removeFromCart, decreaseQuantity, clearCart, loading } = useCartStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCart();
@@ -27,6 +29,18 @@ export default function CartPage() {
 
   const handleClearCart = async () => {
     await clearCart();
+  };
+
+  const handleCheckout = async () => {
+    try {
+      // Clear the cart
+      await clearCart();
+      // Navigate to success page
+      navigate('/order-success');
+    } catch (error) {
+      console.error('Checkout failed:', error);
+      // You could add error handling here if needed
+    }
   };
 
   return (
@@ -147,9 +161,11 @@ export default function CartPage() {
                       {loading ? "Clearing..." : "Clear Cart"}
                     </button>
                     <button
-                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                      onClick={handleCheckout}
+                      disabled={loading}
+                      className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 disabled:opacity-50 disabled:transform-none"
                     >
-                      Proceed to Checkout
+                      {loading ? "Processing..." : "Proceed to Checkout"}
                     </button>
                   </div>
                 </div>

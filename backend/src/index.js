@@ -45,7 +45,7 @@ const corsOptions = {
 };
 
 app.use(cors({
-    origin: "https://e-commerce-shop-ease-dusky.vercel.app", 
+    origin: "http://localhost:5173", // replace with your frontend URL
     credentials: true, // allow cookies
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"], // allow JWT headers too

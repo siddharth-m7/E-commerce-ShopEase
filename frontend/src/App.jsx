@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import ProductDetails from './pages/ProductDetails';
 import CartPage from './pages/CartPage';
+import OrderSuccess from './pages/OrderSuccess';
 import AdminPage from './pages/AdminPage.jsx';
 import Navbar from './components/Navbar';
 
@@ -40,6 +41,7 @@ function App() {
       <Route path="/products" element={<ProductPage />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<CartPage />} />
+      <Route path="/order-success" element={<OrderSuccess />} />
       <Route path="/admin" element={<AdminPage />} />
     </Routes>
    </Router>
