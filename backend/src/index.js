@@ -12,9 +12,10 @@ connectDB();
 
 const app = express();
 
+const CLIENT_URL = process.env.CLIENT_URL;
 
 app.use(cors({
-    origin: "http://localhost:5173", 
+    origin: CLIENT_URL, 
     credentials: true, // allow cookies
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"], // allow JWT headers too
