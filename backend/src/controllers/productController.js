@@ -1,4 +1,4 @@
-const {createProduct, getAllProducts, getProductsByCategory, getProductsByPriceRange, getProductById, updateProduct, deleteProduct, filterProducts} = require('../services/ProductService');
+const {createProduct, getAllProducts, getProductsByCategory, getProductsByPriceRange, getProductById, updateProduct, deleteProduct, filterProducts} = require('../services/productService');
 // Controller to filter products by category and price
 const filterProductsController = async (req, res) => {
     try {
