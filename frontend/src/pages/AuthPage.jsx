@@ -1,13 +1,19 @@
 // src/pages/AuthPage.jsx
 import { useState, useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function AuthPage() {
   const { login, register, error, loading, user } = useAuthStore();
-  const [isLogin, setIsLogin] = useState(true);
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  
+  // Initialize isLogin based on URL parameter
+  const [isLogin, setIsLogin] = useState(() => {
+    const mode = searchParams.get('mode');
+    return mode !== 'signup'; // Default to login unless explicitly signup
+  });
 
   const [form, setForm] = useState({
     name: "",
@@ -36,7 +42,17 @@ export default function AuthPage() {
     }
   }, [user, navigate]);
 
+  // ✅ Update isLogin state when URL parameter changes
+  useEffect(() => {
+    const mode = searchParams.get('mode');
+    setIsLogin(mode !== 'signup');
+    // Clear form when mode changes
+    setForm({ name: "", email: "", password: "", role: "user" });
+  }, [searchParams]);
+
   const toggleAuthMode = () => {
+    const newMode = isLogin ? 'signup' : 'login';
+    navigate(`/auth?mode=${newMode}`, { replace: true });
     setIsLogin(!isLogin);
     setForm({ name: "", email: "", password: "", role: "user" });
   };

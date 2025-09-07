@@ -19,7 +19,7 @@ export default function ProductCard({ product }) {
   const handleAdd = async (productId, quantity = 1) => {
     // Check if user is logged in - if not, redirect to login page
     if (!user) {
-      navigate('/auth');
+      navigate('/auth?mode=login');
       return;
     }
     

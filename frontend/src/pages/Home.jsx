@@ -55,7 +55,7 @@ export default function Home() {
                             </button>
                             {!user && (
                                 <button
-                                    onClick={() => navigate('/auth')}
+                                    onClick={() => navigate('/auth?mode=signup')}
                                     className="px-8 py-4 bg-white hover:bg-gray-50 text-red-600 font-semibold rounded-xl border-2 border-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
                                 >
                                     Sign Up
@@ -201,7 +201,7 @@ export default function Home() {
                         </button>
                         {!user && (
                             <button
-                                onClick={() => navigate('/auth')}
+                                onClick={() => navigate('/auth?mode=signup')}
                                 className="px-8 py-4 bg-transparent hover:bg-red-600 text-white font-semibold rounded-xl border-2 border-white transform hover:scale-105 transition-all duration-300"
                             >
                                 Create Account

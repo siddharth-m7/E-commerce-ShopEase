@@ -28,11 +28,11 @@ const Navbar = () => {
   };
 
   const handleLogin = () => {
-    navigate('/auth');
+    navigate('/auth?mode=login');
   }
 
   const handleSignup = () => {
-    navigate('/auth');
+    navigate('/auth?mode=signup');
   }
 
   const handleProducts = () => {
